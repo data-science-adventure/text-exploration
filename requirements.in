@@ -1,7 +1,13 @@
 ipykernel
 pandas
-matplotlib
-seaborn
-nltk
-wordcloud
+numpy
+PyPDF2
+pdfplumber
 spacy
+nltk
+matplotlib 
+seaborn 
+wordcloud 
+textblob 
+gensim 
+scikit-learn
