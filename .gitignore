@@ -203,5 +203,5 @@ __marimo__/
 
 # Project files
 
-pdfs/*
+data/*
 cleaned_texts/*
