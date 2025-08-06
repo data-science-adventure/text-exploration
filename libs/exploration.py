@@ -365,3 +365,75 @@ def plot_word_dispersion(text_words, words_to_track):
     plt.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
     plt.tight_layout()
     plt.show()
+
+
+def dispersion_analysis(words, words_to_track):
+    # Ensure these words are present in the 'words' list (lowercase)
+    words_to_track_filtered = [word for word in words_to_track if word in set(words)]
+
+    if words_to_track_filtered:
+        plot_word_dispersion(words, words_to_track_filtered)
+    else:
+        print(
+            "None of the specified words were found in the text for dispersion analysis."
+        )
+
+
+def lexical_diversity_analysis(words, filtered_words):
+    num_words = len(words)
+    num_unique_words = len(set(words))
+    num_filtered_words = len(filtered_words)
+    num_unique_filtered_words = len(set(filtered_words))
+
+    # Type-Token Ratio (TTR)
+    ttr = num_unique_words / num_words if num_words > 0 else 0
+    filtered_ttr = (
+        num_unique_filtered_words / num_filtered_words if num_filtered_words > 0 else 0
+    )
+
+    data = {
+        "Metric": [
+            "Total Words (Tokens)",
+            "Unique Words (Types)",
+            "Type-Token Ratio (TTR)",
+            "Filtered Words (Tokens - no stopwords/non-alphanumeric)",
+            "Unique Filtered Words (Types)",
+            "Filtered Type-Token Ratio (TTR)",
+        ],
+        "Value": [
+            f"{num_words}",
+            f"{num_unique_words}",
+            f"{ttr:.4f}",
+            f"{num_filtered_words}",
+            f"{num_unique_filtered_words}",
+            f"{filtered_ttr:.4f}",
+        ],
+    }
+    print(pd.DataFrame(data))
+    # Moving-Average Type-Token Ratio (MATTR) or Guiraud's Index for better comparison across texts
+    # For simplicity, we'll focus on TTR and its filtered version.
+
+    # Visualization: Bar Chart for TTR
+    metrics = ["Total Words", "Unique Words", "Filtered Words", "Unique Filtered Words"]
+    values = [
+        num_words,
+        num_unique_words,
+        num_filtered_words,
+        num_unique_filtered_words,
+    ]
+
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=metrics, y=values)
+    plt.title("Lexical Statistics")
+    plt.ylabel("Count")
+    plt.show()
+
+    metrics_ttr = ["TTR (Raw)", "TTR (Filtered)"]
+    values_ttr = [ttr, filtered_ttr]
+
+    plt.figure(figsize=(8, 5))
+    sns.barplot(x=metrics_ttr, y=values_ttr)
+    plt.title("Type-Token Ratios")
+    plt.ylabel("Ratio")
+    plt.ylim(0, 1)
+    plt.show()
