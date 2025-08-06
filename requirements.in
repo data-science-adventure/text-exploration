@@ -11,3 +11,4 @@ wordcloud
 textblob 
 gensim 
 scikit-learn
+pyLDAvis
