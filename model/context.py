@@ -14,6 +14,11 @@ class Language(Enum):
     SPANISH = 1
     ENGLISH = 2
 
+class KeyphraseAlgorithm(Enum):
+    TF_IDF = 1
+    TEXT_RANK = 2
+    SG_RANK = 3
+
 
 class FileType(Enum):
     PDF = 1

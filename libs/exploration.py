@@ -16,6 +16,7 @@ from nltk.collocations import BigramAssocMeasures, BigramCollocationFinder
 from pathlib import Path
 from model.context import Language
 import libs.extraction as extraction
+from model.chart_config import ChartConfig
 
 # Readability and Complexity Analysis
 # Using Flesch-Kincaid Grade Level and Automated Readability Index (ARI)
@@ -309,23 +310,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 # TfidfVectorizer expects a list of documents, so we pass our combined text as a single-element list
 
 
-def keyword_analysis(text: str, language: Language, max_features=50):
-    vectorizer = TfidfVectorizer(
-        stop_words=extraction.get_stop_words(language), max_features=max_features
-    )  # defauolt limit to top 50
-    tfidf_matrix = vectorizer.fit_transform([text])
-    feature_names = vectorizer.get_feature_names_out()
-
-    tfidf_scores = tfidf_matrix.toarray().flatten()
-    keyword_scores = sorted(
-        zip(feature_names, tfidf_scores), key=lambda x: x[1], reverse=True
-    )
+def plot_keywords(keyword_scores, config: ChartConfig):
 
     print("\n--- Top 20 Keywords (TF-IDF Scores) ---")
     for keyword, score in keyword_scores[:20]:
         print(f"{keyword}: {score:.4f}")
 
-    # Visualization: Bar Chart of Top Keywords by TF-IDF Score
     keywords_to_plot = keyword_scores[:20]
     if keywords_to_plot:
         plt.figure(figsize=(12, 6))
@@ -333,9 +323,9 @@ def keyword_analysis(text: str, language: Language, max_features=50):
             x=[kw for kw, score in keywords_to_plot],
             y=[score for kw, score in keywords_to_plot],
         )
-        plt.title("Top 20 Keywords by TF-IDF Score")
-        plt.xlabel("Keywords")
-        plt.ylabel("TF-IDF Score")
+        plt.title(config.title)
+        plt.xlabel(config.x_label)
+        plt.ylabel(config.y_label)
         plt.xticks(rotation=45, ha="right")
         plt.tight_layout()
         plt.show()

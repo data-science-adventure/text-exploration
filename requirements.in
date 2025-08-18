@@ -12,3 +12,4 @@ textblob
 gensim 
 scikit-learn
 pyLDAvis
+textacy

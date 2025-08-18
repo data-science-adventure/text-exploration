@@ -1,4 +1,3 @@
-
 import os
 import re
 import numpy as np
@@ -11,6 +10,7 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.util import ngrams
 from model.context import UnitOfAnalysis
 from model.document import Document
+
 
 def read_documents_as_stream(directory: Path):
     for filename in os.listdir(directory):
@@ -34,6 +34,7 @@ def read_documents(context: Context):
                 text_content = f.read()
                 document.words = word_tokenize(text_content)
                 document.sentences = sent_tokenize(text_content)
+                document.text_content = text_content
                 documents.append(document)
     return documents
 

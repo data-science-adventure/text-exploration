@@ -10,3 +10,4 @@ class Document:
     words: Optional[list[str]] = None
     sentences: Optional[list[str]] = None
     filtered_words: Optional[list[str]] = None
+    text_content: Optional[str] = None
