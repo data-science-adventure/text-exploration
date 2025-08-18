@@ -1,5 +1,9 @@
 # Setup and Installation
 
+## Pre-requisities
+- [Python](https://www.python.org/downloads/) is installed
+- [Virtual enviroment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) for python is installed
+
 ## 1. Create virtual environment
 
 ```shell
@@ -35,6 +39,7 @@ pip install -r requirements.txt
 ```
 
 ## 4. Download spacy en core web sm
+
 ```shell
 python -m spacy download en_core_web_sm
 ```
